@@ -1,6 +1,5 @@
 package com.dwitech.eap.stripe.payments.boundary;
 
-import com.dwitech.eap.stripe.payments.control.Payments;
 import com.dwitech.eap.stripe.payments.entity.PaymentRequest;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -27,8 +26,6 @@ import static javax.ws.rs.core.Response.status;
 public class AutomaticConfirmationEndpoint {
     @Inject @ConfigProperty(name = "stripe.currency") String currency;
     @Inject @ConfigProperty(name = "stripe.secret.key") String secretKey;
-    @Inject
-    Payments payments;
 
     @POST @Path("/process")
     public Response processPayment(final PaymentRequest request) {
@@ -38,7 +35,7 @@ public class AutomaticConfirmationEndpoint {
         try {
             final PaymentIntentCreateParams createParams = builder()
                     .setAmount((long) request.getAmount())
-                    .setCurrency(request.getCurrency())
+                    .setCurrency(request.getCurrency() == null || request.getCurrency().isEmpty() ? currency : request.getCurrency())
                     .build();
 
             final PaymentIntent intent = create(createParams);

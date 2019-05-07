@@ -30,8 +30,7 @@ import static javax.ws.rs.core.Response.status;
 public class ManuelConfirmationEndpoint {
     @Inject @ConfigProperty(name = "stripe.currency") String currency;
     @Inject @ConfigProperty(name = "stripe.secret.key") String secretKey;
-    @Inject
-    Payments payments;
+    @Inject Payments payments;
 
     @POST @Path("/confirm")
     public Response confirmPayment(final ConfirmPaymentRequest request) {
@@ -41,7 +40,7 @@ public class ManuelConfirmationEndpoint {
             if (request.getPaymentMethodId() != null) {
                 final PaymentIntentCreateParams createParams = builder()
                         .setAmount(valueOf(request.getPaymentAmount()))
-                        .setCurrency(request.getCurrency())
+                        .setCurrency(request.getCurrency() == null || request.getCurrency().isEmpty() ? currency : request.getCurrency())
                         .setConfirm(true)
                         .setPaymentMethod(request.getPaymentMethodId())
                         .setConfirmationMethod(MANUAL)
