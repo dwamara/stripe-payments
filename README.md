@@ -13,7 +13,7 @@ A simple json object request should be sent to the endpoint and should be as fol
 Following response will be sent back to the client:
 ```json
 {
-	"client_secret" : "<the_transaction_client_secret_for_the_payment_intent_to_be_returned_to_the_client>"
+	"client_secret" : "<the_transaction_secret_for_the_payment_intent_to_be_returned_to_the_client>"
 }
 ```
 
