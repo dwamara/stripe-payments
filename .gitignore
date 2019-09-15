@@ -74,3 +74,6 @@ hs_err_pid*
 
 buildDeployREmoteAndRun.sh
 
+
+# Project exclude paths
+/target/
