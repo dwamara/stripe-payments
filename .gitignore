@@ -11,6 +11,7 @@
 .idea/**/*.xml
 .idea/*.xml
 .idea/**/*.*
+.idea/sonarlint/**/*.*
 
 *.iml
 
