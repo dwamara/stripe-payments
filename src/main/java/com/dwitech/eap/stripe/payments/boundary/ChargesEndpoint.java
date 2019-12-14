@@ -3,11 +3,11 @@ package com.dwitech.eap.stripe.payments.boundary;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -22,18 +22,11 @@ import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.ok;
 import static javax.ws.rs.core.Response.status;
 
-@Path("/charges")
-@Produces(APPLICATION_JSON)
-@Consumes(APPLICATION_JSON)
-@Tag(name = "Charges service", description = "Return the complete list of attempted charges on a payment intent")
+@Path("/charges") @Produces(APPLICATION_JSON)
 public class ChargesEndpoint {
     @ConfigProperty(name = "stripe.secret.key") String secretKey;
 
     @GET @Path("/{payment_intent}")
-    @Operation(description = "Start the process of a particular payment request")
-    @APIResponse(responseCode = "200", description = "Successful, returning the client secret for this payment request")
-    @APIResponse(responseCode = "400", description = "Error, the transaction amount was 0, missing from the request or was not in a valid format")
-    @APIResponse(responseCode = "500", description = "Error, there was a problem notified by the Stripe service")
     public Response generateClientSecretFromHttpGetRequest(@PathParam("payment_intent") final String paymentIntent) {
         apiKey = secretKey;
         ResponseBuilder responseBuilder;

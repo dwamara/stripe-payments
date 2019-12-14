@@ -5,6 +5,7 @@ import com.dwitech.eap.stripe.payments.entity.UpdatePaymentRequest;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
+import io.quarkus.arc.config.ConfigProperties;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,9 +27,10 @@ import static javax.ws.rs.core.Response.ok;
 import static javax.ws.rs.core.Response.status;
 
 @ApplicationScoped
+@ConfigProperties(prefix = "stripe")
 public class Payments {
-    @ConfigProperty(name = "stripe.currency") String defaultCurrency;
-    @ConfigProperty(name = "stripe.secret.key") String secretKey;
+    @ConfigProperty(name = "currency") String defaultCurrency;
+    @ConfigProperty(name = "secret.key") String secretKey;
 
     public Response generatePaymentResponse(final PaymentIntent intent) {
         JsonObject jsonObject;
