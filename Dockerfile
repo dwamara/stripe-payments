@@ -1,4 +1,4 @@
-FROM dwamara/dwitech-quarkus:0.21.2
+FROM dwamara/dwitech-quarkus:latest
 
 LABEL maintainer="Daniel Wamara, dwitech.com"
 

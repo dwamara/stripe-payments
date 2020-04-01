@@ -4,7 +4,7 @@ import com.dwitech.eap.stripe.payments.control.Payments;
 import com.dwitech.eap.stripe.payments.entity.ConfirmPaymentRequest;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
-import io.quarkus.arc.config.ConfigProperties;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.POST;
@@ -24,10 +24,9 @@ import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.status;
 
 @Path("/mc") @Produces(APPLICATION_JSON)
-@ConfigProperties(prefix = "stripe")
 public class ManuelConfirmationEndpoint {
-    public String currency;
-    public String secretKey;
+    @ConfigProperty(name = "stripe.currency") String currency;
+    @ConfigProperty(name = "stripe.secret.key") String secretKey;
     @Inject Payments payments;
 
     @POST @Path("/confirm")

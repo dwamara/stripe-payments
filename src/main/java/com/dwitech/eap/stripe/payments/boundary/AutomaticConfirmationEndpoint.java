@@ -3,7 +3,6 @@ package com.dwitech.eap.stripe.payments.boundary;
 import com.dwitech.eap.stripe.payments.control.Payments;
 import com.dwitech.eap.stripe.payments.entity.CreatePaymentRequest;
 import com.dwitech.eap.stripe.payments.entity.UpdatePaymentRequest;
-import io.quarkus.arc.config.ConfigProperties;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
@@ -17,10 +16,9 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.status;
 
 @Path("/ac") @Produces(APPLICATION_JSON)
-@ConfigProperties(prefix = "stripe")
 public class AutomaticConfirmationEndpoint {
-    @ConfigProperty(name = "currency") String defaultCurrency;
-    @ConfigProperty(name = "secret.key") String secretKey;
+    @ConfigProperty(name = "stripe.currency") String defaultCurrency;
+    @ConfigProperty(name = "stripe.secret.key") String secretKey;
     @Inject Payments payments;
 
     @POST @Path("/create")
@@ -47,7 +45,7 @@ public class AutomaticConfirmationEndpoint {
     }
 
     @POST @Path("/update")
-    public Response updatePaymentFromHttpPostRequest(UpdatePaymentRequest request) {
+    public Response updatePaymentFromHttpPostRequest(final UpdatePaymentRequest request) {
         return payments.updatePayment(request);
     }
 

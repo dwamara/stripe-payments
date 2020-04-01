@@ -34,8 +34,8 @@ public class ChargesEndpoint {
         try {
             if (paymentIntent == null || paymentIntent.isEmpty()) {
                 return status(BAD_REQUEST)
-                        .entity(createObjectBuilder().add("message", "client_secret amount is required")
-                        ).build();
+                        .entity(createObjectBuilder().add("message", "client_secret amount is required"))
+                               .build();
             }
 
             responseBuilder =  ok(new GenericEntity<List<Charge>>(retrieve(paymentIntent).getCharges().getData()) {});

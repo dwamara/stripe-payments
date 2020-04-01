@@ -1,4 +1,4 @@
-package com.dwitech.eap.stripe.payments.boundary.health;
+package com.dwitech.eap.stripe.payments;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -14,7 +14,7 @@ import static org.eclipse.microprofile.health.HealthCheckResponse.named;
 public class LivenessCheck implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
-        return named("Stripe-Payments-Service Reachable : " + new Date(currentTimeMillis()))
+        return named("Stripe-Payments Reachable : " + new Date(currentTimeMillis()))
                 .up()
                 .build();
     }
